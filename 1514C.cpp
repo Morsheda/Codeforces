@@ -40,24 +40,35 @@ ll arr[100005];
 
 int main()
 {
-    ll n,i,r;
+    ll n,i,gc,c,p;
     cin>>n;
-    r=1;
+    ll vis[n+5];
+    memset(vis,0,sizeof(vis));
+    c=n-1;
     for(i=1;i<n;i++){
-        r=(r*i)%n;
-    }
-    if(r!=1){
-        for(i=1;i<n;i++){
-            if(i!=r)
-                cout<<i<<" ";
+        gc=__gcd(n,i);
+        if(gc!=1){
+            vis[i]=1;
+            c--;
         }
-        cout<<endl;
-    }
-    else{
-        for(i=1;i<n;i++)
-            cout<<i<<" ";
-        cout<<endl;
     }
     
+    p=1;
+    for(i=1;i<n;i++){
+        if(!vis[i]){
+            p=(p*i)%n;
+        }
+    }
+    if(p!=1){
+        c--;
+        vis[p]=1;
+    }
+    cout<<c<<endl;
+    for(i=1;i<n;i++){
+        if(!vis[i]){
+            cout<<i<<" ";
+        }
+    }
+    cout<<endl;
     return 0;
 }
